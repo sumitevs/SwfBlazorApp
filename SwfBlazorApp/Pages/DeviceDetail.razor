@@ -1,0 +1,46 @@
+﻿@page "/devicedetail/{deviceName}"
+
+<section class="employee-detail">
+    <h1 class="page-title">Details for @DeviceInfo.DeviceName</h1>
+    <br />
+    <div class="col-12 row">
+        <div class="col-2 text-center">
+            <img src="@($"/images/{DeviceInfo.DeviceName}.jpg")" class="img-fluid rounded-circle employee-detail-img" />
+        </div>
+        <div class="col-10 row">
+            <div class="col-12 col-xxl-8">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Device Name</label>
+                    <div class="col-sm-8">
+                        <label type="text" class="form-control-plaintext">@DeviceInfo.DeviceName</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Device Type</label>
+                    <div class="col-sm-8">
+                        <label type="text" readonly class="form-control-plaintext">@DeviceInfo.DeviceType</label>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Connected</label>
+                    <div class="col-sm-8">
+
+                        @if (DeviceInfo.IsConnected)
+                        {
+                            <label type="text" readonly class="form-control-plaintext">Yes</label>
+                        }
+                        else
+                        {
+                            <label type="text" readonly class="form-control-plaintext">No</label>
+
+                        }
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-12 col-xxl-4">
+            </div>
+        </div>
+    </div>
+</section>

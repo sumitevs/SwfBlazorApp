@@ -1,0 +1,31 @@
+﻿@page "/overview"
+<PageTitle>@Title</PageTitle>
+<h2>Overview</h2>
+
+@if(DeviceInfoList == null)
+{
+    <p><em>Loading</em></p>
+}
+else
+{
+    <SwfBlazorApp.Components.QuickViewPopup DeviceInfo="_selectDeviceInfo"></SwfBlazorApp.Components.QuickViewPopup>
+    <div class="row">
+        @foreach (var device in DeviceInfoList)
+        {
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <ErrorBoundary>
+                    <ChildContent>
+                        <SwfBlazorApp.Components.DeviceCard DeviceInfo="device" DeviceQuickViewClicked="ShowQuickViewPopup">
+
+                        </SwfBlazorApp.Components.DeviceCard>
+                    </ChildContent>
+                    <ErrorContent>
+                        <p class="errorUI">Invalid Device!</p>
+                    </ErrorContent>
+                </ErrorBoundary>
+
+            </div>
+        }
+    </div>
+}
+
