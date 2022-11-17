@@ -1,19 +1,21 @@
 ﻿using Microsoft.AspNetCore.Components;
 using SwfBlazorApp.Models;
+using SwfBlazorApp.Services;
 using SwfBlazorApp.Shared;
 
 namespace SwfBlazorApp.Pages
 {
     public partial class DeviceDetail
     {
+        [Inject]
+        public IDeviceDataService? DeviceDataService { get; set; }
         [Parameter]
         public string DeviceName { get; set; }
         public DeviceInfo? DeviceInfo { get; set; } = new DeviceInfo();
 
-        protected override Task OnInitializedAsync()
+        protected async override Task OnInitializedAsync()
         {
-            DeviceInfo = MockDataService.DeviceInfoList.FirstOrDefault(d => d.DeviceName == DeviceName);
-            return base.OnInitializedAsync();
+            DeviceInfo = await DeviceDataService.GetDeviceDetails(DeviceName);
         }
     }
 }

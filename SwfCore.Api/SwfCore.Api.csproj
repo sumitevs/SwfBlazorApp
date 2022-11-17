@@ -18,6 +18,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\SwfBlazorApp.Shared\SwfBlazorApp.Shared.csproj" />
+		<ProjectReference Include="..\SwfBlazorApp\SwfBlazorApp.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

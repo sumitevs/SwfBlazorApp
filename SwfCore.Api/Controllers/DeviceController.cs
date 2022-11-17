@@ -21,13 +21,23 @@ namespace SwfCore.Api.Controllers
         [HttpGet]
         public IActionResult GetAllEmployees()
         {
-            return Ok(_deviceRepository.GetAllDevices());
+            var devices = _deviceRepository.GetAllDevices();
+            if (devices.Any())
+            {
+                return Ok(devices);
+            }
+            return NoContent();
         }
 
         [HttpGet("{deviceName}")]
         public IActionResult GetDeviceByName(string deviceName)
         {
-            return Ok(_deviceRepository.GetDeviceByName(deviceName));
+            var device = _deviceRepository.GetDeviceByName(deviceName);
+            if (device is not null)
+            {
+                return Ok(device);
+            }
+            return NoContent();
         }
 
         [HttpPost]
