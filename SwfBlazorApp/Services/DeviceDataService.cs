@@ -24,9 +24,9 @@ namespace SwfBlazorApp.Services
             return await response.Content.ReadFromJsonAsync<DeviceInfo>();
         }
 
-        public Task DeleteDeviceInfo(string deviceName)
+        public async Task DeleteDeviceInfo(string deviceName)
         {
-            throw new NotImplementedException();
+            await httpClient.DeleteAsync($"api/Device/{deviceName}");
         }
 
         public async Task<IEnumerable<DeviceInfo>> GetAllDevices(bool refreshRequired = false)
@@ -65,9 +65,10 @@ namespace SwfBlazorApp.Services
                 { PropertyNameCaseInsensitive = true });
         }
 
-        public Task UpdateDevice(DeviceInfo deviceInfo)
+        public async Task UpdateDevice(DeviceInfo deviceInfo)
         {
-            throw new NotImplementedException();
+            var deviceJson = new StringContent(JsonSerializer.Serialize(deviceInfo),System.Text.Encoding.UTF8,"application/json");
+            await httpClient.PutAsync("api/device",deviceJson);
         }
     }
 }

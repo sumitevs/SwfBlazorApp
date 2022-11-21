@@ -1,0 +1,63 @@
+﻿@page "/deviceedit"
+@page "/deviceedit/{DeviceNAme}"
+
+@if(!Saved)
+{
+        <section class="employee-edit">
+        <h1 class="page-title">Details for @DeviceInfo.DeviceName</h1>
+        <EditForm Model="@DeviceInfo" OnValidSubmit="@HandleValidSubmit" 
+                                        OnInvalidSubmit="@HandleInvalidSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            @if(DeviceInfo.Id == 0)
+            {
+                <div class="row mb-3">
+                    <label for="image" class="col-12 col-sm-3">
+                        Select Image
+                    </label>
+                    <div class="col-md-8">
+                        <InputFile OnChange="OnInputFileChange"/>
+                    </div>
+                </div>
+
+            }
+            <div class="row mb-3">
+                <label for="deviceName" class="col-form-label col-md-3">Device name</label>
+                <div class="col-md-8">
+                    <InputText id="deviceName" @bind-Value="@DeviceInfo.DeviceName" class="form-control col-md-8" placeholder="enter device name"></InputText>
+                </div>
+                <ValidationMessage class="offset-md-3 col-md-8" For="@(() => DeviceInfo.DeviceName)" />
+            </div>
+            <div class="row mb-3">
+                <label for="deviceType" class="col-form-label col-md-3">Device type</label>
+                <div class="col-md-8">
+                    <InputText id="deviceType" @bind-Value="@DeviceInfo.DeviceType" class="form-control col-md-8" placeholder="enter device type"></InputText>
+                </div>
+                 <ValidationMessage class="offset-md-3 col-md-8" For="@(() => DeviceInfo.DeviceType)" />
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-8 offset-md-3">
+                    <div class="form-check">
+                        <InputCheckbox id="connected" class="form-check-input" @bind-Value="@DeviceInfo.IsConnected"></InputCheckbox>
+                        <label class="form-check-label" for="connected">
+                            Connected
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary me-1">Save Device</button>
+            @if(DeviceInfo.Id > 0)
+            {
+                <button type="button" class="btn btn-danger my-1" @onclick="@DeleteDevice">
+                    Delete
+                </button>
+            }
+            <button type="button" class="btn btn-outline-primary" @onclick="@NavigateToOverview">Cancel</button>
+        </EditForm>
+    </section>
+}
+else
+{
+    <div class="alert @StatusClass">@Message</div>
+    <button type="button" class="btn btn-outline-primary ms-1" @onclick="@NavigateToOverview">Back to overview</button>
+}
